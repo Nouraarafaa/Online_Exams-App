@@ -10,7 +10,7 @@ import { RouterOutlet } from '@angular/router';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent implements OnInit {
+export class AppComponent implements OnInit { 
   title = 'online_exams_app';
 
   private platformId = inject(PLATFORM_ID);

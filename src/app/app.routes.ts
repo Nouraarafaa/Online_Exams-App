@@ -2,11 +2,10 @@ import { Routes } from '@angular/router';
 import { AuthLayoutComponent } from './core/layouts/auth-layout/auth-layout.component';
 
 export const routes: Routes = [
-  { path : '' , component : AuthLayoutComponent , children : [
+  { path: '', redirectTo: 'auth', pathMatch: 'full' },
+  { path: 'auth', component: AuthLayoutComponent, children: [
     {
-      path: '',
-      redirectTo: 'login',
-      pathMatch: 'full'
+      path: '', redirectTo: 'login', pathMatch: 'full'
     },
     {
       path: 'login',
@@ -16,9 +15,9 @@ export const routes: Routes = [
       path: 'register',
       loadComponent: () => import('./core/auth/register/register.component').then(m => m.RegisterComponent)
     },
-
-  ]
-
-  },
-
+    {
+      path: 'forgot-password',
+      loadComponent: () => import('./core/auth/forgot-password/forgot-password.component').then(m => m.ForgotPasswordComponent)
+    },
+  ]}
 ];
