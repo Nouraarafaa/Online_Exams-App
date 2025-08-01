@@ -4,3 +4,7 @@
 @tailwind utilities;
 @import "flowbite/src/themes/default";
 @plugin "flowbite/plugin";
+
+:root {
+  --main-color: #4461F2;
+}

@@ -1,0 +1,40 @@
+.img {
+  width: 780px; 
+  margin-left: 80px;
+}
+
+@media screen and (max-width: 1200px) {
+  .img {
+    width: 900px;
+    margin-top: 80px;
+  }
+}
+
+@media screen and (max-width: 1064px) {
+  .text-4 {
+    font-size: 20px !important;
+  }
+  .img {
+    margin-top: 80px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  img {
+    width: 200px;
+    margin-left: 0;
+  }
+  .img {
+    margin-top: 48px; 
+  }
+}
+
+@media screen and (max-width: 550px) {
+  img {
+    width: 250px;
+    margin-left: 0px;
+  }
+  .img {
+    margin-top: 80px;
+  }
+}
