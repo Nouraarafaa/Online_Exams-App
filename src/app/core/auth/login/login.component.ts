@@ -3,10 +3,11 @@ import { SubmitBtnComponent } from "../submit-btn/submit-btn.component";
 import { ReactiveFormsModule, FormGroup, Validators, FormControl } from '@angular/forms';
 import { AuthService } from 'auth';
 import { RouterLink } from '@angular/router';
+import { ValidationComponent } from "../../../shared/components/validation/validation.component";
 
 @Component({
   selector: 'app-login',
-  imports: [SubmitBtnComponent, ReactiveFormsModule , RouterLink],
+  imports: [SubmitBtnComponent, ReactiveFormsModule, RouterLink, ValidationComponent],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss'
 })
@@ -28,7 +29,7 @@ export class LoginComponent {
     if (this.loginForm.valid) {
       this._authService.login(this.loginForm.value).subscribe({
         next: (response) => {
-          console.log('Login successful', response);
+          console.log('Login successful');
         },
         error: (error) => {
           console.error('Login failed', error);

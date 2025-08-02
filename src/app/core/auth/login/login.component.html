@@ -1,20 +1,24 @@
 <form [formGroup]="loginForm" class="form max-w-sm mx-auto pt-28" (ngSubmit)="SubmitForm()">
   <h1 class="text-2xl font-bold py-5">Login</h1>
   <div class="mb-5">
-    <input formControlName="email" type="email" id="email" class="border text-sm rounded-lg block w-full p-2.5" placeholder="Enter Email"
-      required />
+    <input formControlName="email" type="email" id="email" class="border text-sm rounded-lg block w-full p-2.5"
+      placeholder="Enter Email" required />
+
+    <app-validation [control]="loginForm.get('email')!" inputName="email"></app-validation>
   </div>
   <div class="mb-2 relative">
-    <input formControlName="password" type="password" id="password" class="border text-sm rounded-lg block w-full p-2.5" placeholder="Password"
-      required />
+    <input formControlName="password" type="password" id="password" class="border text-sm rounded-lg block w-full p-2.5"
+      placeholder="Password" required />
+      <app-validation [control]="loginForm.get('password')!" inputName="password"></app-validation>
       <div class="img absolute w-4 top-4 right-3 hover:cursor-pointer">
-        <img src="/assets/pass.png" alt="">
-      </div>
+      <img src="/assets/pass.png" alt="">
+    </div>
   </div>
   <div class="flex justify-end mb-8">
-    <div><a class="text-decoration-none hover:underline  hover:cursor-pointer text-main" routerLink="/auth/forgot-password" >Recover Password ?</a></div>
+    <div><a class="text-decoration-none hover:underline  hover:cursor-pointer text-main"
+        routerLink="/auth/forgot-password">Recover Password ?</a></div>
   </div>
   <div class="mt-2">
-    <app-submit-btn ></app-submit-btn>
+    <app-submit-btn></app-submit-btn>
   </div>
 </form>
