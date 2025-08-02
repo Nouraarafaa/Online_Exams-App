@@ -1,0 +1,23 @@
+<section class="h-[60px] w-full px-4">
+  <div class="flex items-stretch flex-1 justify-center">
+    <!-- Search input -->
+    <div class="flex items-center flex-grow max-w-[70%] relative rounded-full shadow-lg border border-gray-200 bg-white">
+      <i class="fas fa-search absolute left-4 text-main"></i>
+      <input
+        type="text"
+        class="w-full pl-12 pr-4 py-2 rounded-full focus:outline-none focus:ring-2 focus:ring-main"
+        placeholder="Search Quiz"
+      />
+    </div>
+
+    <!-- Start Button -->
+    <div class="ml-4 mr-5">
+      <app-submit-btn class="w-full p-5">Start Quiz</app-submit-btn>
+    </div>
+
+    <!-- Profile Image -->
+    <div class="ml-4 w-10 h-10 rounded-full overflow-hidden">
+      <img src="/assets/profile.jpg" class="w-full h-full object-cover" alt="Profile" />
+    </div>
+  </div>
+</section>
