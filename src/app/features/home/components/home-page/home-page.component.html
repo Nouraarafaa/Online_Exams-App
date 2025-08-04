@@ -1,1 +1,17 @@
-<p>home-page works!</p>
+<section>
+  <div class="flex flex-wrap">
+    <div class="w-full md:w-1/2 order-0">
+      <button routerLink="/allQuizes" class=" text-xl px-4 py-2 bg-main text-white rounded">Quizes</button>
+    </div>
+
+    <div class="w-full md:w-1/2 order-2 md:order-1 flex justify-start md:justify-end mt-3 md:mt-0">
+      <button class="px-4 py-2 text-lg bg-gray-700 text-white rounded">View All</button>
+    </div>
+
+    <div class="w-full order-1 md:order-2 p-0">
+      <div class="inner-list">
+        <app-subject-list></app-subject-list>
+      </div>
+    </div>
+  </div>
+</section>

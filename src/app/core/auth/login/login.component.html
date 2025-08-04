@@ -1,5 +1,5 @@
 <form [formGroup]="loginForm" class="form max-w-sm mx-auto pt-28" (ngSubmit)="SubmitForm()">
-  <h1 class="text-2xl font-bold py-5">Login</h1>
+  <h1 class="text-2xl font-bold py-5 text-center">Login</h1>
   <div class="mb-5">
     <input formControlName="email" type="email" id="email" class="border text-sm rounded-lg block w-full p-2.5"
       placeholder="Enter Email" required />
@@ -19,6 +19,8 @@
         routerLink="/auth/forgot-password">Recover Password ?</a></div>
   </div>
   <div class="mt-2">
-    <app-submit-btn></app-submit-btn>
-  </div>
+      <button type="submit"
+        class="w-full rounded-xl bg-main px-4 py-2 text-white font-semibold hover:bg-opacity-90 transition">
+      Login
+      </button>  </div>
 </form>

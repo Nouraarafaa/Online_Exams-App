@@ -1,19 +1,23 @@
 import { Component, inject } from '@angular/core';
-import { SubmitBtnComponent } from "../submit-btn/submit-btn.component";
 import { ReactiveFormsModule, FormGroup, Validators, FormControl } from '@angular/forms';
 import { AuthService } from 'auth';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { ValidationComponent } from "../../../shared/components/validation/validation.component";
+import { LocalStorageMethodService } from '../../../shared/services/localstorage.service';
+
 
 @Component({
   selector: 'app-login',
-  imports: [SubmitBtnComponent, ReactiveFormsModule, RouterLink, ValidationComponent],
+  imports: [ ReactiveFormsModule, RouterLink, ValidationComponent],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss'
 })
 export class LoginComponent {
 
   _authService = inject(AuthService);
+  router = inject(Router);
+  _localStorageMethodService = inject(LocalStorageMethodService)
+
 
   loginForm = new FormGroup({
     email: new FormControl(null, [Validators.required, Validators.email]),
@@ -30,6 +34,12 @@ export class LoginComponent {
       this._authService.login(this.loginForm.value).subscribe({
         next: (response) => {
           console.log('Login successful');
+
+          this._localStorageMethodService.myLocarStorage('setItem', 'token', response.token);
+
+
+          this.router.navigate(['/home']);
+
         },
         error: (error) => {
           console.error('Login failed', error);

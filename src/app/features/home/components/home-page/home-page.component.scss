@@ -1,0 +1,26 @@
+section {
+  padding: 16px 32px;
+  background-color: white;
+  box-shadow: 0px 15px 40px 0px #0000000d;
+  border-radius: 20px;
+  button {
+    color:#4461F2;
+    display: inline-block;
+    margin-bottom: 24px;
+    border: none;
+    background-color: white;
+    &:hover {
+      color: #4461F2;
+    }
+  }
+  .view-all {
+    cursor: pointer;
+    text-decoration: none;
+    margin-left: auto;
+  }
+}
+@media only screen and (max-width: 768px) {
+  section {
+    padding: 16px 32px;
+  }
+}

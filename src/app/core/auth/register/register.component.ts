@@ -1,5 +1,4 @@
 import { Component, inject } from '@angular/core';
-import { SubmitBtnComponent } from "../submit-btn/submit-btn.component";
 import { Router, RouterLink } from '@angular/router';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
@@ -13,7 +12,7 @@ import { ValidationComponent } from "../../../shared/components/validation/valid
 
 @Component({
   selector: 'app-register',
-  imports: [SubmitBtnComponent, RouterLink, ValidationComponent , ReactiveFormsModule],
+  imports: [RouterLink, ValidationComponent , ReactiveFormsModule],
   templateUrl: './register.component.html',
   styleUrl: './register.component.scss'
 })
@@ -70,7 +69,7 @@ export class RegisterComponent {
             this.isFormSubmited = true;
             this._localStorageMethodService.myLocarStorage('setItem', 'token', res.token);
             this.storeToken(jwtDecode(res.token));
-            // this.router.navigate(['/home']);
+            this.router.navigate(['/login']);
           },
           error: () => {
             this.isFormSubmited = false;
