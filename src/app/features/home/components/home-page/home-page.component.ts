@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
-import { SubjectListComponent } from "../subject-list/subject-list.component";
 import { RouterLink } from '@angular/router';
+import { CardsComponent } from "../cards/cards.component";
 
 @Component({
   selector: 'app-home-page',
-  imports: [SubjectListComponent , RouterLink],
+  imports: [RouterLink, CardsComponent],
   templateUrl: './home-page.component.html',
   styleUrl: './home-page.component.scss'
 })

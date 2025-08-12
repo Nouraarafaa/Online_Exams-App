@@ -69,7 +69,7 @@ export class RegisterComponent {
             this.isFormSubmited = true;
             this._localStorageMethodService.myLocarStorage('setItem', 'token', res.token);
             this.storeToken(jwtDecode(res.token));
-            this.router.navigate(['/login']);
+            this.router.navigate(['/auth/login']);
           },
           error: () => {
             this.isFormSubmited = false;
