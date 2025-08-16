@@ -5,11 +5,12 @@ import { Observable } from 'rxjs';
 import * as SubjectsActions from '../../store/subjects.actions';
 import * as SubjectsSelectors from '../../store/subjects.selectors';
 import { AsyncPipe } from '@angular/common';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-cards',
   standalone: true,
-  imports: [AsyncPipe],
+  imports: [AsyncPipe , RouterLink],
   templateUrl: './cards.component.html',
   styleUrls: ['./cards.component.scss']
 })

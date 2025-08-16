@@ -2,7 +2,7 @@
 
 
 @for (item of SubjectsList$ | async; track item._id) {
-  <div class="w-full sm:w-1/2 md:w-1/3 p-4">
+  <div [routerLink]="['/SubjectList' , item._id]" class="w-full sm:w-1/2 md:w-1/3 p-4">
   <div class="relative overflow-hidden rounded-xl shadow-lg">
     <img
       [src]="item.icon"
