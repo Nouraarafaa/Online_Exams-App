@@ -1,32 +1,26 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { ISubject } from '../../../interfaces/cards-subjects';
-import { SubjectsService } from '../../services/subjects.service';
-
+import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
+import * as SubjectsActions from '../../store/subjects.actions';
+import * as SubjectsSelectors from '../../store/subjects.selectors';
+import { AsyncPipe } from '@angular/common';
 
 @Component({
   selector: 'app-cards',
+  standalone: true,
+  imports: [AsyncPipe],
   templateUrl: './cards.component.html',
-  styleUrl: './cards.component.scss'
+  styleUrls: ['./cards.component.scss']
 })
 export class CardsComponent implements OnInit {
 
-  Subjects: ISubject[] = [];
-  private _SubjectsService = inject(SubjectsService);
+  private readonly _store = inject(Store);
+  SubjectsList$!: Observable<ISubject[]>;
 
   ngOnInit(): void {
-    this.getSubjectsData();
+    this._store.dispatch(SubjectsActions.LoadSubjects());
+    this.SubjectsList$ = this._store.select(SubjectsSelectors.SelectAllSubjects);
   }
 
-  getSubjectsData(): void {
-    this._SubjectsService.getAllSubjects().subscribe({
-      next: (res) => {
-        console.log(res);
-        this.Subjects = (res as any).subjects;
-
-      },
-      error: (err) => {
-        console.error('Error fetching subjects:', err);
-      }
-    });
-  }
 }
