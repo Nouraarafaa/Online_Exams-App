@@ -1,6 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
-import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { AbstractControl, FormControl, FormGroup, ReactiveFormsModule, ValidationErrors, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { AuthService } from 'auth';
 import { LocalStorageMethodService } from '../../../shared/services/localstorage.service';
@@ -29,36 +29,37 @@ export class RegisterComponent {
 
 
   initForm(): void {
-    this.registerForm = new FormGroup(
-      {
-        username: new FormControl(null, [
-          Validators.required,
-          Validators.minLength(5),
-          Validators.maxLength(20),
-        ]),
-        firstName: new FormControl(null, [
-          Validators.required,
-          Validators.pattern(this.namePattren),
-        ]),
-        lastName: new FormControl(null, [
-          Validators.required,
-          Validators.pattern(this.namePattren),
-        ]),
-        email: new FormControl(null, [Validators.required, Validators.email]),
-        password: new FormControl(null, [
-          Validators.required,
-          Validators.pattern(
-            '^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$'
-          ),
-        ]),
-        rePassword: new FormControl(null, [Validators.required]),
-        phone: new FormControl(null, [
-          Validators.required,
-          Validators.pattern('^01[0-2,5]{1}[0-9]{8}$'),
-        ]),
-      },
-      // { validators: matchPassword }
-    );
+  this.registerForm = new FormGroup(
+  {
+    username: new FormControl(null, [
+      Validators.required,
+      Validators.minLength(5),
+      Validators.maxLength(20),
+    ]),
+    firstName: new FormControl(null, [
+      Validators.required,
+      Validators.pattern(this.namePattren),
+    ]),
+    lastName: new FormControl(null, [
+      Validators.required,
+      Validators.pattern(this.namePattren),
+    ]),
+    email: new FormControl(null, [Validators.required, Validators.email]),
+    password: new FormControl(null, [
+      Validators.required,
+      Validators.pattern(
+        '^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$'
+      ),
+    ]),
+    rePassword: new FormControl(null, [Validators.required]),
+    phone: new FormControl(null, [
+      Validators.required,
+      Validators.pattern('^01[0-2,5]{1}[0-9]{8}$'),
+    ]),
+  },
+  { validators: this.matchPassword }
+  
+);
   }
   onSubmit() {
     if (this.registerForm.valid) {
@@ -89,4 +90,15 @@ storeToken(tokenData: string): void {
   ngOnDestroy(): void {
     this.cancelSubscription.unsubscribe();
   }
+matchPassword = (control: AbstractControl): ValidationErrors | null => {
+  const password = control.get('password')?.value;
+  const rePassword = control.get('rePassword')?.value;
+
+  if (password && rePassword && password !== rePassword) {
+        console.log("mismatch");
+    return { mismatch: true };
+    
+  }
+  return null;
+};
 }

@@ -1,31 +1,30 @@
-<aside class="bg-[#FFF]">
+<aside class="sidebar">
     <div class="inner-sidebar" #innerSidebar>
+
         <div class="flex justify-between">
             <a routerLink="/home" class="flex items-center mb-3">
                 <span class="w-50 flex justify-center">
-                    <img src="/assets/logo.png" class="logo-img"/>
+                    <img src="/assets/logo.png" class="logo-img" />
                 </span>
             </a>
-            <!-- <div class="close-btn pointer">
-                <i class="fas fa-times p-1"></i>
-            </div> -->
         </div>
+
         <ul class="mt-5">
             <li>
                 <a class="sidebar-link" routerLink="/home" routerLinkActive="active-route">
-                    <i class="fas fa-th-large"></i> 
+                    <i class="fas fa-th-large"></i>
                     Dashboard
                 </a>
             </li>
             <li class="mt-4">
-                <a class="sidebar-link">
+                <a class="sidebar-link" routerLink="/history" routerLinkActive="active-route">
                     <i class="fas fa-history"></i>
                     Quiz History
                 </a>
             </li>
             <li class="mt-4">
-                <a class="sidebar-link pointer">
-                    <i class="fas fa-sign-out-alt logout-icon"></i> 
+                <a (click)="logout()" class="sidebar-link">
+                    <i class="fas fa-sign-out-alt logout-icon"></i>
                     Log Out
                 </a>
             </li>

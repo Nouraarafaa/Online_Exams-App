@@ -4,6 +4,7 @@ import { MainLayoutComponent } from './core/layouts/main-layout/main-layout.comp
 import { HomePageComponent } from './features/home/components/home-page/home-page.component';
 import { authGuard } from './core/guards/auth.guard';
 import { SubjectListComponent } from './features/home/components/subject-list/subject-list.component';
+import { LogoutComponent } from './core/auth/logout/logout.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'auth', pathMatch: 'full' },
@@ -24,6 +25,8 @@ export const routes: Routes = [
         path: 'forgot-password',
         loadComponent: () => import('./core/auth/forgot-password/forgot-password.component').then(m => m.ForgotPasswordComponent)
       },
+      { path: 'logout', component: LogoutComponent },  
+
     ]
   },
   {

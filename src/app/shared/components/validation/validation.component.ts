@@ -10,4 +10,6 @@ import { AbstractControl } from '@angular/forms';
 export class ValidationComponent {
   @Input() control!: AbstractControl;
   @Input() inputName: string = '';
+
+  
 }
