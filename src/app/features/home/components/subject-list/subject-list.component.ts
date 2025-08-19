@@ -1,21 +1,78 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { SubjectsService } from '../../services/subjects.service';
 import { IExam } from '../../../interfaces/exams';
 import { EMPTY } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
+import { Question } from '../../../interfaces/questions';
 
 @Component({
   selector: 'app-subject-list',
   templateUrl: './subject-list.component.html',
-  styleUrls: ['./subject-list.component.scss']
+  styleUrls: ['./subject-list.component.scss'],
+  imports: []
 })
-export class SubjectListComponent implements OnInit {
-  
-  private readonly _activatedRoute = inject(ActivatedRoute); 
-  private readonly _subjectsService = inject(SubjectsService); 
+export class SubjectListComponent implements OnInit, OnDestroy {
+
+  private readonly _activatedRoute = inject(ActivatedRoute);
+  private readonly _subjectsService = inject(SubjectsService);
 
   Exams: IExam[] = [];
+  questions: Question[] = [];
+  currentQuestionIndex = 0;
+  examId: string | null = null;
+
+  showModal: 'instructions' | 'questions' | null = null;
+
+  timer: number = 15 * 60;
+  interval!: ReturnType<typeof setInterval>;
+  selectedAnswers: { [key: number]: string } = {}; 
+
+  openModal(type: 'instructions' | 'questions') {
+    this.showModal = type;
+  }
+
+  closeModal() {
+    this.showModal = null;
+  }
+
+  get formattedTimer(): string {
+    const minutes = Math.floor(this.timer / 60);
+    const seconds = this.timer % 60;
+    return `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+  }
+
+  startTimer() {
+    this.interval = setInterval(() => {
+      if (this.timer > 0) {
+        this.timer -= 1;
+      } else {
+        clearInterval(this.interval);
+        // this.submitExam();
+      }
+    }, 1000);
+  }
+
+  GetAllQuestions(examId: string) {
+    this._subjectsService.GetQuestions(examId).subscribe({
+      next: (res) => {
+        this.questions = res.questions;
+        console.log('Questions:', this.questions);
+        this.currentQuestionIndex = 0;
+      },
+      error: (err) => {
+        console.error('Failed to load questions', err);
+      }
+    });
+  }
+
+  nextQuestion() {
+    this.currentQuestionIndex = Math.min(this.currentQuestionIndex + 1, this.questions.length - 1);
+  }
+
+  prevQuestion() {
+    this.currentQuestionIndex = Math.max(this.currentQuestionIndex - 1, 0);
+  }
 
   ngOnInit(): void {
     this._activatedRoute.paramMap.pipe(
@@ -23,18 +80,43 @@ export class SubjectListComponent implements OnInit {
         const _id = params.get('_id');
         if (!_id || _id.length !== 24) {
           console.error('Invalid subject id:', _id);
-          return EMPTY; // skip API call if id invalid
+          return EMPTY; 
         }
         return this._subjectsService.GetSubjectList(_id);
       })
     )
     .subscribe({
       next: (res) => {
-        this.Exams = res.exams; 
+        this.Exams = res.exams;
       },
       error: (err) => {
         console.error('Error fetching exams:', err);
       }
     });
+
+    // this.examId = this._activatedRoute.snapshot.paramMap.get('_id');
+    // if (this.examId) {
+    //   this.GetAllQuestions(this.examId);
+    //   this.startTimer();
+    // } else {
+    //   console.error('No examId found in route');
+    // }
   }
+
+  ngOnDestroy(): void {
+    if (this.interval) {
+      clearInterval(this.interval);
+    }
+    }
+startExam(examId: string) {
+  this.examId = examId;                // save selected exam
+  this.GetAllQuestions(examId);        // fetch questions for it
+  this.openModal('instructions');      // just show instructions for now
+}
+
+beginQuestions() {
+  this.openModal('questions');         // switch to questions modal
+  this.startTimer();                   // start countdown only here
+}
+
 }

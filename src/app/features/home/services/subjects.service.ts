@@ -19,10 +19,13 @@ export class SubjectsService {
   GetSubjectList(id: string ): Observable<any> {
   return this._httpClient.get(`${this._baseUrl}exams?subject=${id}`);
   }
+  GetQuestions(id: string ): Observable<any> {
+  return this._httpClient.get(`${this._baseUrl}questions?exam=${id}`);
+  }
+
 }
 
-//https://exam.elevateegy.com/api/v1/exams?subject=670037f6728c92b7fdf434fc
 
-
+//https://exam.elevateegy.com/api/v1/questions?exam=670070a830a3c3c1944a9c63
 
 
