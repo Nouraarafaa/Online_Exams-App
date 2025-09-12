@@ -1,9 +1,9 @@
-export interface Root {
+export interface RootQ {
   message: string
-  questions: Question[]
+  questions: QuestionResponse[]
 }
 
-export interface Question {
+export interface QuestionResponse {
   answers: Answer[]
   type: string
   _id: string
@@ -28,3 +28,12 @@ export interface Exam {
   active: boolean
   createdAt: string
 }
+
+export interface QuestionAdapt{
+  answers: Answer[]
+  _id: string
+  question: string
+  correct: string
+  index:number
+  selectedAnswer?:string
+} 
