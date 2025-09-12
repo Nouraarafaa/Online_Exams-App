@@ -1,12 +1,13 @@
-// Union type for modal status
-export type ModalStateOptions = 'Not Started' | 'Started' | 'Closed';
+export type ExamStatus = 'Not Started' |'Started' | 'Show Report'| 'Show Summary';
 
 // State interface
 export interface ExamModalState {
-  modalstate: ModalStateOptions;
+  IsModalStateOpen: boolean;
+  ExamStatus:ExamStatus;
 }
 
 // Initial state
 export const initialModalState: ExamModalState = {
-  modalstate: 'Not Started',
+  IsModalStateOpen: false,
+  ExamStatus:'Started' as ExamStatus
 };

@@ -1,17 +1,23 @@
 import { createFeatureSelector, createSelector } from "@ngrx/store";
 import { QuestionState } from "./question.state";
 
-export const SelectQuestionState = createFeatureSelector<QuestionState>('question');
+export const selectQuestionState = createFeatureSelector<QuestionState>('question');
 
-export const SelectCurrentQuestion = createSelector(
-  SelectQuestionState,
-  (state) => state.currentQuestion
+export const selectCurrentQuestion = createSelector(
+  selectQuestionState,
+  (state): QuestionState['currentQuestion'] => state.currentQuestion
 );
-export const SelectNumOfQuestions = createSelector(
-  SelectQuestionState,
-  (state) => state.questions.length
+
+export const selectNumOfQuestions = createSelector(
+  selectQuestionState,
+  (state) => {
+    return state.questions.length;
+  }
 );
-export const SelectNumOfWrongQuestions = createSelector(
-  SelectQuestionState,
-  (state) => state.wrongQuestions
+
+export const selectNumOfWrongQuestions = createSelector(
+  selectQuestionState,
+  (state) => {
+    return state.wrongQuestions.length;
+  }
 );

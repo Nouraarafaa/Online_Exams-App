@@ -24,11 +24,14 @@ export class QuestionsEffects {
     );
   });
 
-  setQuestions$ = createEffect(() => {
-    return this.actions$.pipe(
-      ofType(QuestionActions.setQuestions),
-      tap(action => console.log('Set Questions Action:', action)),
-      map((action) => QuestionActions.setCurrentQuestion({ questions: action.questions[0] }))
-    );
-  });
+setQuestions$ = createEffect(() => {
+  return this.actions$.pipe(
+    ofType(QuestionActions.setQuestions),
+    tap(action => console.log('Set Questions Action:', action)),
+    map((action) =>
+      QuestionActions.setCurrentQuestion({ currentQuestion: action.questions[0] })
+    )
+  );
+});
+
 }

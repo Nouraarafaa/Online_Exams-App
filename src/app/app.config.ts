@@ -14,6 +14,7 @@ import { ModalReducer } from './core/store/exam/exam-modal.reducers';
 import { ModalEffects } from './core/store/exam/exam-modal-effects';
 import { QuestionReducer } from './core/store/questions/question.reducer';
 
+
 export const appConfig: ApplicationConfig = {
   providers: [
     provideZoneChangeDetection({ eventCoalescing: true }),
@@ -21,10 +22,11 @@ export const appConfig: ApplicationConfig = {
     provideClientHydration(withEventReplay()),
     provideStore({
       subjects: SubjectsReducer,
-      modal : ModalReducer,
-      question : QuestionReducer
+      modal: ModalReducer,
+      question: QuestionReducer
     }),
-    provideEffects([SubjectEffects , QuestionsEffects , ModalEffects]),
+    
+    provideEffects([SubjectEffects, QuestionsEffects, ModalEffects]),
     provideHttpClient(withFetch(), withInterceptors([headersInterceptor])),
     { provide: Base_Url, useValue: 'https://exam.elevateegy.com/api/v1/' }
   ]

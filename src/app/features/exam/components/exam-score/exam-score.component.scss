@@ -1,0 +1,38 @@
+.score-card {
+  background: #fff;
+  border-radius: 12px;
+  padding: 20px;
+  text-align: center;
+  width: 500px;
+  margin: auto;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.208);
+}
+
+.correct-label {
+  margin-bottom: 15px;
+  color: green;
+}
+
+.correct-label span {
+  padding: 8px;
+  margin-left: 5px;
+}
+
+.wrong-label {
+  color: #ef4444;
+}
+
+.wrong-label span {
+  padding: 8px;
+  margin-left: 5px;
+}
+.score-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  canvas {
+    max-width: 200px;  
+    max-height: 200px; 
+  }
+}

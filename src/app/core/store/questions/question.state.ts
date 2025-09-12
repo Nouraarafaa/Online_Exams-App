@@ -1,12 +1,13 @@
 import { QuestionAdapt } from "../../exam/interfaces/questions";
 
-export interface QuestionState{
+export interface QuestionState {
   questions: QuestionAdapt[];
   currentQuestion: QuestionAdapt | null;
   wrongQuestions: QuestionAdapt[];
 }
-export const initialQuestionState: QuestionState = { 
-  questions: [] as QuestionAdapt[],
+
+export const initialQuestionState: QuestionState = {
+  questions: [],
   currentQuestion: null,
-  wrongQuestions: [] as QuestionAdapt[]
-}
+  wrongQuestions: []
+};

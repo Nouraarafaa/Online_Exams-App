@@ -2,6 +2,7 @@ import { Component, inject, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { QuestionAdapt } from '../../../../core/exam/interfaces/questions';
 import * as QuestionSelectors from '../../../../core/store/questions/question.selectors';
+import * as QuestionActions from '../../../../core/store/questions/question.action';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
@@ -9,7 +10,7 @@ import { FormsModule } from '@angular/forms';
   selector: 'app-exam',
   imports: [CommonModule, FormsModule],
   templateUrl: './exam.component.html',
-  styleUrl: './exam.component.scss'
+  styleUrls: ['./exam.component.scss']
 })
 export class ExamComponent implements OnInit {
 
@@ -20,76 +21,67 @@ export class ExamComponent implements OnInit {
   isBckBtnDisabled = true;
   isNextBtnDisabled = true;
 
+  ngOnInit(): void {
+    this.GetCurrentQuestion();
+    this.GetNumOfQuestions();
+  }
+
   GetCurrentQuestion() {
-    this._store.select(QuestionSelectors.SelectCurrentQuestion).subscribe({
+    this._store.select(QuestionSelectors.selectCurrentQuestion).subscribe({
       next: (res) => {
         this.CurrentQuestion = res;
-
-        // reset selected answer when moving to new question
         this.SelectedAnswer = '';
-
-        // update buttons after question changes
         this.enableDBtns();
-      },
-      error: (err) => {
-        console.error('Error fetching current question:', err);
       }
     });
   }
 
   GetNumOfQuestions() {
-    this._store.select(QuestionSelectors.SelectNumOfQuestions).subscribe({
-      next: (res) => {  
-        this.numQ = res;
-      },
-      error: (err) => {
-        console.error('Error fetching number of questions:', err);
-      }
+    this._store.select(QuestionSelectors.selectNumOfQuestions).subscribe({
+      next: (res) => this.numQ = res
     });
   }
 
   GenerateRange() {
-    return [...new Array(this.numQ).keys()];
+    return [...Array(this.numQ).keys()];
   }
 
   OnSelectAns() {
-    this.enableDBtns(); // enable Next when answer selected
+    this.enableDBtns();
   }
 
   enableDBtns() {
-    this.isBckBtnDisabled = (this.CurrentQuestion?.index ?? 1) === 1;
-    this.isNextBtnDisabled = !this.SelectedAnswer || this.SelectedAnswer === '';
+    const currentIndex = this.CurrentQuestion?.index ?? 0;
+    this.isBckBtnDisabled = currentIndex <= 0;
+    this.isNextBtnDisabled = !this.SelectedAnswer;
   }
 
   onNext() {
     if (!this.CurrentQuestion) return;
 
     // save answer
-    this._store.dispatch({
-      type: '[Question] Update Question',
+    this._store.dispatch(QuestionActions.UpdateQuestion({
       QId: this.CurrentQuestion._id,
-      SelectedAnswer: this.SelectedAnswer
-    });
-
-    // check if last question
-    if (this.CurrentQuestion.index === this.numQ - 1) {
-      console.log('Exam finished. Submitting...');
-      return;
-    }
+      selectedAnswer: this.SelectedAnswer
+    }));
 
     // go to next question
-    this._store.dispatch({ type: '[Question] Next Question' });
+    this._store.dispatch(QuestionActions.onNext());
+
+    // check if last question
+    if ((this.CurrentQuestion.index ?? 0) === this.numQ - 1) {
+      console.log('Exam finished. Submitting...');
+      this.ShowReport();
+    }
   }
 
   onBack() {
-    if (this.CurrentQuestion?.index && this.CurrentQuestion.index > 1) {
-      this._store.dispatch({ type: '[Question] Previous Question' });
-    }
+    this._store.dispatch(QuestionActions.onBack());
   }
 
-  ngOnInit(): void {
-    this.GetCurrentQuestion();
-    this.GetNumOfQuestions();
+  ShowReport() {
+    this._store.dispatch(QuestionActions.FilterWA());
+    this._store.dispatch({ type: '[Exam Modal] Set Exam Status', ExamStatus: 'Show Report' });
   }
 
 }

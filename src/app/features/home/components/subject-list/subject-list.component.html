@@ -21,8 +21,17 @@
       </button>
     </div>
   </div>
-    @if ((ModalStatus$ | async) === 'Started') {
-    <app-exam></app-exam>
+    @if ((ModalStatus$ | async)) {
+      @switch ((ExamStatus$ | async)) {
+        @case ('Started') {
+          <app-exam></app-exam>
+        }
+        @case ('Show Report') {
+          <app-exam-score></app-exam-score>
+        }
+        @case ('Show Summary') {
+          <app-exam-summary></app-exam-summary>
+      }
   }
 
   }
@@ -56,5 +65,5 @@
     </div>
   </div>
   -->
-
+  }
 </div>

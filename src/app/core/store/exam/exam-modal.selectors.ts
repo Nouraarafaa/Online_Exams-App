@@ -7,5 +7,9 @@ export const SelectModalState = createFeatureSelector<ExamModalState>('modal');
 // Selector for the modal status
 export const SelectModalStatus = createSelector(
   SelectModalState,
-  (state) => state.modalstate
+  (state) => state.IsModalStateOpen
+);
+export const SelectExamStatus = createSelector(
+  SelectModalState,
+  (state) => state.ExamStatus
 );
