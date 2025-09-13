@@ -71,7 +71,7 @@ export class ExamComponent implements OnInit {
     // check if last question
     if ((this.CurrentQuestion.index ?? 0) === this.numQ - 1) {
       console.log('Exam finished. Submitting...');
-      this.ShowReport();
+      this.showReport();
     }
   }
 
@@ -79,9 +79,15 @@ export class ExamComponent implements OnInit {
     this._store.dispatch(QuestionActions.onBack());
   }
 
-  ShowReport() {
-    this._store.dispatch(QuestionActions.FilterWA());
-    this._store.dispatch({ type: '[Exam Modal] Set Exam Status', ExamStatus: 'Show Report' });
-  }
+showReport() {
+  // First, filter wrong answers
+  this._store.dispatch(QuestionActions.FilterWA());
+
+  // Then, set exam status to show report
+  this._store.dispatch({ type: '[Exam Modal] Set Exam Status', ExamStatus: 'Show Report' });
+
+  console.log("Submit clicked: wrong questions filtered, modal status set to Show Report");
+}
+
 
 }

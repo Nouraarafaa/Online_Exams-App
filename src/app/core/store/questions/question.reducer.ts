@@ -61,8 +61,9 @@ on(QuestionActions.UpdateQuestion, (state, { QId, selectedAnswer }) => {
     const wrong = state.questions.filter(q => q.selectedAnswer !== q.correct);
     console.log("Reducer FilterWA - wrongQuestions:", wrong);
     return { ...state, wrongQuestions: wrong };
-  })
-
-
+  }),
+  on(QuestionActions.ResetQState, () => 
+    initialQuestionState
+  ),
 
 );

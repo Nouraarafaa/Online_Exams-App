@@ -9,5 +9,5 @@ export interface ExamModalState {
 // Initial state
 export const initialModalState: ExamModalState = {
   IsModalStateOpen: false,
-  ExamStatus:'Started' as ExamStatus
+  ExamStatus:'Not Started' as ExamStatus
 };

@@ -1,3 +1,4 @@
+import { CloseModal } from './../../../../core/store/exam/exam-modal.action';
 import { Component, inject, OnInit, PLATFORM_ID, AfterViewInit, ElementRef, ViewChild } from '@angular/core';
 import { Store } from '@ngrx/store';
 import * as QuestionSelectors from '../../../../core/store/questions/question.selectors';
@@ -83,5 +84,10 @@ export class ExamScoreComponent implements OnInit, AfterViewInit {
 
       this.chart = new Chart(this.chartCanvas.nativeElement, config);
     }
+  }
+
+  CloseModal(){
+    this._store.dispatch({type: '[Exam Modal] Reset Modal State'});
+    this._store.dispatch({type: '[Question] Reset Q State'});
   }
 }

@@ -3,36 +3,85 @@
   border-radius: 12px;
   padding: 20px;
   text-align: center;
-  width: 500px;
-  margin: auto;
+  width: 90%;
+  max-width: 500px;
+  margin: 20px auto;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.208);
+  box-sizing: border-box;
 }
 
-.correct-label {
-  margin-bottom: 15px;
-  color: green;
-}
-
-.correct-label span {
-  padding: 8px;
-  margin-left: 5px;
-}
-
-.wrong-label {
-  color: #ef4444;
-}
-
-.wrong-label span {
-  padding: 8px;
-  margin-left: 5px;
-}
 .score-wrapper {
   display: flex;
   justify-content: center;
   align-items: center;
+  margin: 20px 0;
+}
 
-  canvas {
-    max-width: 200px;  
-    max-height: 200px; 
+.score-wrapper canvas {
+  width: 100%;
+  max-width: 200px;
+  height: 250px;
+}
+
+.correct-label, .wrong-label {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: 500;
+  margin-bottom: 10px;
+}
+
+.correct-label span {
+  padding: 5px 10px;
+  margin-left: 5px;
+  border-radius: 6px;
+  background-color: #e6ffe6;
+}
+
+.wrong-label span {
+  padding: 5px 10px;
+  margin-left: 5px;
+  border-radius: 6px;
+  background-color: #ffe6e6;
+}
+
+.flex {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.flex button {
+  flex: 1 1 120px;
+  min-width: 120px;
+  padding: 10px 15px;
+  border-radius: 24px;
+  border: 1px solid #3b82f6;
+  color: #3b82f6;
+  background: transparent;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.flex button:hover {
+  background-color: #3b82f6;
+  color: #fff;
+}
+
+/* Media Queries */
+@media (max-width: 600px) {
+  .score-card {
+    padding: 15px;
+  }
+
+  .score-wrapper canvas {
+    max-width: 150px;
+  }
+
+  .flex button {
+    min-width: 100px;
+    padding: 8px 12px;
   }
 }

@@ -25,3 +25,4 @@ export const onNext = createAction('[Question] Next Question');
 export const onBack = createAction('[Question] Previous Question');
 
 export const FilterWA = createAction('[Question] Filter Wrong Answers');
+export const ResetQState = createAction('[Question] Reset Q State');
