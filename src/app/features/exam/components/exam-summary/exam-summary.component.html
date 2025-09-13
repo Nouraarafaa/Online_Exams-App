@@ -6,19 +6,18 @@
       <div class="question-title">{{ q.question }}</div>
 
       <div class="answers-wrapper">
-        <div *ngFor="let ans of q.answers; let j = index"
-             [ngClass]="{
-               'option': true,
-               'correct bg-green-300': ans.key === q.correct,
-               'incorrect bg-red-400': ans.key === q.selectedAnswer && ans.key !== q.correct
-             }">
+        <div *ngFor="let ans of q.answers; let j = index" [ngClass]="{
+              'option': true,
+              'correct bg-green-300': ans.key === q.correct,
+              'incorrect bg-red-400': ans.key === q.selectedAnswer && ans.key !== q.correct
+            }">
           <input type="checkbox" [checked]="ans.key === q.correct || ans.key === q.selectedAnswer" disabled>
           {{ ans.answer }}
         </div>
       </div>
     </div>
   </div>
-<div class="btn">
-  <div class="close-btn" (click)="CloseModal()">Close</div>
-</div>
+  <div class="btn">
+    <div class="close-btn" (click)="CloseModal()">Close</div>
+  </div>
 </div>
