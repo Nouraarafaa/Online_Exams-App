@@ -1,44 +1,24 @@
+<div class="quiz-container">
 
-  <div class="quiz-container">
+  <div class="questions-scroll">
+    <!-- Loop through wrong questions -->
+    <div *ngFor="let q of wrongQuestions; let i = index" class="question">
+      <div class="question-title">{{ q.question }}</div>
 
-    <!-- Question 1 -->
-    <div class="question">
-      <div class="question-title">Exercitationem pariatur quae facere</div>
-      <label class="option correct">
-        <input type="checkbox" checked disabled>
-        voluptates eos aut
-      </label>
-      <label class="option incorrect">
-        <input type="checkbox" checked disabled>
-        voluptates eos aut
-      </label>
-      <label class="option">
-        <input type="checkbox" disabled>
-        voluptates eos aut
-      </label>
-      <label class="option correct">
-        <input type="checkbox" disabled>
-        voluptates eos aut
-      </label>
+      <div class="answers-wrapper">
+        <div *ngFor="let ans of q.answers; let j = index"
+             [ngClass]="{
+               'option': true,
+               'correct bg-green-300': ans.key === q.correct,
+               'incorrect bg-red-400': ans.key === q.selectedAnswer && ans.key !== q.correct
+             }">
+          <input type="checkbox" [checked]="ans.key === q.correct || ans.key === q.selectedAnswer" disabled>
+          {{ ans.answer }}
+        </div>
+      </div>
     </div>
-
-    <!-- Question 2 -->
-    <div class="question">
-      <div class="question-title">Exercitationem pariatur quae facere</div>
-      <label class="option incorrect">
-        <input type="radio" name="q2" checked disabled>
-        voluptates eos aut
-      </label>
-      <label class="option">
-        <input type="radio" name="q2" disabled>
-        voluptates eos aut
-      </label>
-      <label class="option correct">
-        <input type="radio" name="q2" disabled>
-        voluptates eos aut
-      </label>
-    </div>
-
-    <button class="close-btn">Close</button>
   </div>
-
+<div class="btn">
+  <div class="close-btn" (click)="CloseModal()">Close</div>
+</div>
+</div>

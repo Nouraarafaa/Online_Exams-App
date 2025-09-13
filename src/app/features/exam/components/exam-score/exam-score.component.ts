@@ -1,17 +1,19 @@
-import { CloseModal } from './../../../../core/store/exam/exam-modal.action';
 import { Component, inject, OnInit, PLATFORM_ID, AfterViewInit, ElementRef, ViewChild } from '@angular/core';
 import { Store } from '@ngrx/store';
 import * as QuestionSelectors from '../../../../core/store/questions/question.selectors';
 import * as QuestionActions from '../../../../core/store/questions/question.action';
 import { isPlatformBrowser } from '@angular/common';
 import { Chart, ChartConfiguration } from 'chart.js/auto';
-import { distinctUntilChanged, take } from 'rxjs/operators';
+import { distinctUntilChanged } from 'rxjs/operators';
+import { ExamSummaryComponent } from "../exam-summary/exam-summary.component";
+import { CommonModule , NgIf } from '@angular/common';
 
 @Component({
   selector: 'app-exam-score',
   standalone: true,
   templateUrl: './exam-score.component.html',
-  styleUrls: ['./exam-score.component.scss']
+  styleUrls: ['./exam-score.component.scss'],
+  imports: [ExamSummaryComponent , CommonModule  ,NgIf],
 })
 export class ExamScoreComponent implements OnInit, AfterViewInit {
 
@@ -86,8 +88,12 @@ export class ExamScoreComponent implements OnInit, AfterViewInit {
     }
   }
 
-  CloseModal(){
-    this._store.dispatch({type: '[Exam Modal] Reset Modal State'});
-    this._store.dispatch({type: '[Question] Reset Q State'});
+  CloseModal() {
+    this._store.dispatch({ type: '[Exam Modal] Reset Modal State' });
+    this._store.dispatch({ type: '[Question] Reset Q State' });
+  }
+  summary: boolean = false
+  boolSummary() {
+    this.summary = !this.summary;
   }
 }

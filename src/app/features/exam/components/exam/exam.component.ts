@@ -89,5 +89,8 @@ showReport() {
   console.log("Submit clicked: wrong questions filtered, modal status set to Show Report");
 }
 
-
+  CloseModal(){
+    this._store.dispatch({type: '[Exam Modal] Reset Modal State'});
+    this._store.dispatch({type: '[Question] Reset Q State'});
+  }
 }

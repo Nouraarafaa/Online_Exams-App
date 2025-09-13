@@ -20,4 +20,11 @@ export const selectNumOfWrongQuestions = createSelector(
   (state) => {
     return state.wrongQuestions.length;
   }
+
 );
+export const selectWrongQuestions = createSelector(
+  selectQuestionState,
+  (state) => state.wrongQuestions
+);
+
+
